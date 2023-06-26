@@ -15,5 +15,28 @@
   img.logo {
       width: 3rem;
   }
+  #color h3 {
+      font-size: 1.25rem;
+      margin: 10px 0;
+  }
+  }
+  @media (max-width: 1000px) {
+    #color h3 {
+        font-size: 1.25rem;
+        margin: 10px 0;
+    }
+    #color li {
+      font-size: .55rem;
+      line-height: .9rem;
+    }
+    #color p {
+      font-size: 0;
+    }
+  }
+  @media (max-width: 500px) {
+    #connect {
+      /* margin: 0; */
+      width: 200px;
+  }
   }
 
