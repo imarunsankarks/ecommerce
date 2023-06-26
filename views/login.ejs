@@ -7,12 +7,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <%- include('./partials/head.ejs') %>
-  <link rel="stylesheet" href="/common.css" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/common.css" />
+  <link rel="stylesheet" href="/navbar.css" />
+  <link rel="stylesheet" href="/correction.css" />
   <style>
       body {
-      /* background-image: url("/login.jpg"); */
-      /* background-color: #ccc; */
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -21,7 +21,6 @@
       max-width: 500px;
       margin: 25rem auto;
       padding: 20px;
-      /* border: 1px solid #ccc; */
       border-radius: 15px;
       box-shadow: 0px 0px 25px rgb(0,0,0,.15);
     }
@@ -53,14 +52,11 @@
       display: none;
     }
     #loginTitleText span{
-      /* scale: 1.5; */
       transition:.3s ease-in;
-      /* letter-spacing: .5vw; */
     }
     #loginTitleText span:hover{
       scale: 1.5;
       transition:.3s ease-out;
-      /* letter-spacing: .5vw; */
     }
     #userName {
       display: flex;
@@ -73,9 +69,9 @@
   <div class="wrapper">
     <header>
     <%- include('./partials/nav.ejs') %>
+    
   </header>
   <main>
-    <!-- <p >Login to shop</p> -->
     <div class="loginContainer">
       <div id="login-form">
         <div id="loginTitleText">

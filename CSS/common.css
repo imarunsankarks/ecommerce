@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* font-size: 1vw; */
   }
   
   html, body {
@@ -13,79 +12,6 @@
   body {
     font-family: 'Poiret One', cursive;
     width: 100%;
-
-  }
-
-  #navbar li .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  #navbar li .dropdown-content {
-    display: flex;
-    font-size: 1vw;
-    flex-direction: column;
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    padding: 2rem 5rem 2rem 2rem;
-    transition: opacity 0.3s ease-in, visibility 0.3s ease-in;
-  }
-  
-  #navbar li .dropdown-content a {
-    padding: 1rem 0;
-  }
-  
-  #navbar li .dropdown:hover .dropdown-content {
-    display: flex;
-    flex-direction: column;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-  }
-  
-  #navbar li .dropbtn {
-    background-color: white;
-    border: 0px;
-  }
-
-  #navbar {
-    display: flex;
-    font-size: 1.1vw;
-    align-items: center;
-    justify-content: right;
-  }
-  #navbar li{
-    list-style: none;
-    padding: 0 1rem;
-  }
-  #navbar li a{
-    text-decoration: none;
-    /* padding: 0 1rem; */
-    color: black;
-  }
-  #navbar li a:hover{
-    color: #8f633d
-  }
-  #navbar li input{
-    border:none;
-    outline: none;
-  }
-  #mobile{
-    display: none;
-  }
-  #mobile li{
-    list-style: none;
-    /* padding: 0 1rem; */
-  }
-  .form button{
-    border: none;
-    background-color:white;
-    cursor: pointer;
   }
 
   #top{
@@ -99,27 +25,6 @@
     top: 0;
     width: 100%;
     z-index: 999;
-  }
-  img.logo {
-    width: 5vw;
-  }
-
-  /* CART BADGE */
-
-.cart-badge {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .cart-badge .badge {
-    position: absolute;
-    top: -.4vw;
-    right: .8vw;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: .2vw;
-    font-size: .5vw;
   }
   ::selection {
     background-color: papayawhip;
@@ -241,71 +146,18 @@
 #navbarmob {
   z-index: 9;
 }
+.carousel {
+  position: relative;
+  padding: 6rem 0 0;
+}
+
 
 
 
 
   /* MEDIA QUERY */
-  @media (min-width:700px){
-    #navbarmob{
-      display: none;
-    }
-  }
+
   @media (max-width:700px){
-    #navbar{
-      display: none;
-    }
-    #navbarmob {
-      display: flex;
-      flex-direction: column;
-      font-size: .6rem;
-      align-items: flex-start;
-      justify-content: flex-start;
-      position: fixed;
-      top: 0;
-      right: -150px;
-      height: 100%;
-      width: 150px;
-      background-color: #ffffff ;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      padding: 1rem 0 0 .4rem;
-      line-height: 1.5rem;
-      transition: 0.4s;
-    }
-    #navbarmob li{
-      list-style: none;
-      padding: 0 1rem;
-    }
-    #navbarmob li a{
-      text-decoration: none;
-      padding: 0 .2rem;
-      color: black;
-    }
-    #navbarmob li input{
-      border:none;
-      outline: none;
-    }
-    #navbarmob.active{
-      right: 0px;
-    }
-    #mobile{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .5rem;
-    }
-    #mobile i{
-      color: black;
-      padding: 0 4vw 0 0;
-      font-size: .7rem; 
-      display: flex;
-    }
-    #mobile a{
-      text-decoration: none;
-    }
-    img.logo {
-      width: 2.5rem;
-    }
     #home {
       height: 250px;
     }
@@ -334,7 +186,7 @@
   .img-det h2 {
     font-size: 1.5rem;
     margin-top: 0;
-}
+  }
   .img-det {
     /* margin: 0 1.5vw; */
     width: 100%;
@@ -358,7 +210,7 @@
     }
     .drop {
       margin: 0rem 0;
-  }
+    }
     .btn-group {
       /* display: grid; */
       grid-template-columns: 150px 150px;
@@ -370,21 +222,10 @@
       margin: 7rem 0 0;
       font-size: 2.5rem;
     }
-    .cart-badge .badge {
-      position: absolute;
-      top: -.8vw;
-      right: 2.8vw;
-      background-color: rgb(255, 0, 0);
-      color: rgb(255, 255, 255);
-      border-radius: 50%;
-      padding: 1px;
-      font-size: .5rem;
-    }
-
-
   }
 
   @media (max-width:1000px){
+    
     #CartProducts {
       padding: 0 2rem 2rem;
       display: flex;
@@ -396,17 +237,17 @@
     }
     #cartdetails {
       margin: 12vw 0 0;
-      font-size: 4vw;
+      font-size: 5vw;
     }
     #address h1 {
-      font-size: 4vw;
+      font-size: 5vw;
     }
     .loginContainer {
-      font-size: 2vw;
-      max-width: 50vw;
+      font-size: 3vw;
+      max-width: 65vw;
     }
     #loginTitleText {
-      font-size: 4vw;
+      font-size: 5vw;
       padding-bottom: 4vw;
     }
     #userRegistration {
@@ -415,7 +256,7 @@
     }
     #userNameDisp {
       /* display: flex; */
-      font-size: 3.5vw;
+      font-size: 4.5vw;
       /* justify-content: center; */
     }
     #Sorry img {
@@ -427,38 +268,31 @@
 
   }
 
-  @media (min-width: 1100px) {
-    #navbar li{
-      /* list-style: none; */
-      padding: 0 1.3rem;
-    }
-  }
-
   @media (max-width: 650px) {
     #eachProdDetails img {
-      width: 27vw;
+      width: 33vw;
     }
     #prodDetails p:nth-child(1) {
-      font-size: 4vw;
+      font-size: 5vw;
       margin-bottom: 2px;
     }
     #prodDetails p:nth-child(3) {
-      font-size: 2vw;
+      font-size: 2.6vw;
       margin: 2vw 0;
     }
     #prodDetails p:nth-child(4) {
-      font-size: 2vw;
+      font-size: 2.6vw;
       margin: 2vw 0 0;
     }
     #prodDetails button {
-      font-size: 2vw;
+      font-size: 2.6vw;
       /* margin: 2vw 0; */
     }
     #eachProdDetails {
-      grid-template-columns: 27vw 30vw;
+      grid-template-columns: 33vw 35vw;
   }
   #quantity {
-    font-size: 2vw;
+    font-size: 2.6vw;
   }
   #addressSubmit input {
     width: 50vw;
@@ -468,17 +302,17 @@
   }
   #addressSubmit button {
     width: 50vw;
-    font-size: 2vw;
+    font-size: 2.5vw;
   }
   #addressSubmit {
-    font-size: 2vw;
+    font-size: 2.5vw;
   }
   #addressEdit button {
-    font-size: 2vw;
+    font-size: 2.5vw;
     width: 50vw;
   }
   #addressEdit p {
-    font-size: 2vw;
+    font-size: 2.5vw;
   }
   #totalamount h2 {
     font-size: 4vw;
@@ -487,26 +321,26 @@
     font-size: 5vw;
   }
   #totalamount button {
-    font-size: 2vw;
+    font-size: 2.5vw;
     width: 50vw;
   }
   #totalamount {
     padding: 5vw 0;
   }
   .registerContainer input {
-    font-size: 2vw;
+    font-size: 2.5vw;
     width: 50vw;
   }
   .registerContainer button {
-    font-size: 2vw;
+    font-size: 2.5vw;
     width: 50vw;
   }
   #userRegistration {
-    font-size: 2.5rem;
+    font-size: 3rem;
     /* padding-bottom: 4vw; */
   }
   #product1 .pro {
-    width: 25vw;
+    width: 40vw;
   }
   #product1 .pro .des p {
     /* text-align: left; */

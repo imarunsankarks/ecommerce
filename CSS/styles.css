@@ -41,7 +41,7 @@
   }
 
 #home {
-  margin-top: 30px;
+  margin-top: 2vw;
   background-image: url("/home.jpg");
   font-size: .9rem;
   width: 100%;
@@ -80,11 +80,8 @@
   margin-top: 50px;
   font-size: 1.7vw;
   width: 20vw;
-  /* height: 3rem; */
-  /* background-position: top 25% right 0; */
   padding: 0px 15px 0 30px;
   display: flex;
-  /* flex-direction: column; */
   align-items: flex-start;
   justify-content: center;
   color: rgb(255, 255, 255);
@@ -100,7 +97,6 @@
   width: 100%;
   height: 200px;
   background-size: cover;
-  /* background-position: top 25% right 0; */
   padding: 0 80px;
   display: flex;
   flex-direction: column;
@@ -175,7 +171,7 @@
 }
 .Churidars{
   margin: 20px;
-  font-size: 1.5vw;
+  font-size: 2.5rem;
   width: 300px;
   height: 200px;
   background-color: #d3bea7;
@@ -194,7 +190,7 @@
 }
 .Top{
   margin: 20px;
-  font-size: 1.5vw;
+  font-size: 2.5rem;
   border-top: 50px;
   width: 300px;
   height: 200px;
@@ -214,7 +210,7 @@
 }
 .Jean{
   margin: 20px;
-  font-size: 1.5vw;
+  font-size: 2.5rem;
   border-top: 50px;
   width: 300px;
   height: 200px;
@@ -326,11 +322,6 @@ p.btag {
   color: #3b3b3b;
   font-size: 3vw;
   padding: 1vw;
-  /* background-image: url("/search.jpg"); */
-  /* width: 100%; */
-  /* height: 200px; */
-  /* background-size: cover; */
-  /* background-position: top 25% right 0; */
 }
 
 #address{
@@ -344,12 +335,6 @@ p.btag {
 
 #prodDetails{
   padding: 1rem 0;
-}
-
-form {
-  background-color: rgb(240, 240, 240);
-  border-radius: 10px;
-  padding: 1rem;
 }
 
 
@@ -378,8 +363,39 @@ form {
 
 @media (min-width: 1100px) {
   #navbar li{
-    /* list-style: none; */
     padding: 0 2rem;
   }
+}
+
+@media (max-width: 850px) {
+  #home{
+    justify-content: flex-start;
+    padding-top: 3rem;
+  }
+  #home button {
+    font-size: 1rem;
+  }
+  #explore {
+    font-size: 1.2rem;
+    width: 20rem;
+    padding: 1rem;
+  }
+  .box2 button {
+    font-size: 1.5rem;
+}
+}
+@media (max-width: 500px) {
+  .Churidars {
+  font-size: 2rem;
+  }
+  .Top {
+    font-size: 2rem;
+  }
+  .Jean {
+    font-size: 2rem;
+  }
+  .bs-box {
+    margin: 20px 30px;
+}
 }
 

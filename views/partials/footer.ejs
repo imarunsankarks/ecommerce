@@ -27,15 +27,36 @@
   padding: 0 2vw;
   line-height: 1.2vw;
 }
-
 #connect {
-  margin: 0;
-  /* width: 100%; */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    /* width: 150px; */
 }
-
 #connect li a{
   color: white;
   text-decoration: none;
+}
+@media (max-width: 1000px) {
+  #color h3 {
+      font-size: 2rem;
+      margin: 10px 0;
+  }
+  #color li {
+    font-size: .9rem;
+    line-height: 1.4rem;
+  }
+  #color p {
+    font-size: 0;
+  }
+}
+@media (max-width: 500px) {
+  #connect {
+    /* margin: 0; */
+    width: 200px;
+}
 }
   </style>
   <section id="logo">
