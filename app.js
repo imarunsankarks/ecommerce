@@ -7,23 +7,33 @@ const Dress = require('./models/dress');
 // const data = require('./data/cart.json');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+require('dotenv').config();
+
 // const { addProductToCart } = require('./models/Cart')
 
 const app = express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-const dbURI = 'mongodb+srv://imasks:asks1234@cluster0.pfdvtsx.mongodb.net/peacock?retryWrites=true&w=majority';
-mongoose.connect(dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.dbURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
     .then((result) => app.listen(3000))
-    .catch((err) => console.log(err));
+    console.log('Connected to the database');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
+};
+
+// Call the async function to connect to the database
+connectToDatabase();
 
 // Create a new instance of the MongoDBStore
 const store = new MongoDBStore({
-  uri: 'mongodb+srv://imasks:asks1234@cluster0.pfdvtsx.mongodb.net/peacock?retryWrites=true&w=majority', 
+  uri: process.env.dbURI, 
   collection: 'sessions' 
 });
 
