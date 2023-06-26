@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PB | Cart </title>
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/common.css" />
+  </head>
+  <body>
+    <header id="cartContainer">
+      <%- include('./partials/nav.ejs') %>
+      <div>
+        <h1 id="cartdetails">Cart details</h1>
+        <!-- <hr> -->
+        <div id="CartProducts">
+          <div id="allProdDetails">
+          <% var i =0; %>
+          <% var wtext = '*PEACOCK BOUTIQUE ORDERS* %0aHi Vipin, I would like to buy these items:-'; %>
+          <% if(cartitem.length<1) { %>
+            <div class='empty'>
+              <img src="/empty.png" alt="">
+              <p>Your shopping bag is empty.</p>
+            </div>
+          <% }else{ %>
+          <% cartitem.forEach(function(item) { %>
+            <div id="eachProdDetails">
+              <a href="/product/<%= item._id %>"><img src="<%= item.image1 %>" alt="" ></a>
+              <div id="prodDetails">
+                <p><%= item.name %></p>
+                <span id="quantity">
+                  Quantity: 
+                  <form style="display: inline; padding: 0%;" method="post" action="/product/<%= item._id %>" onsubmit="reloadPage()">
+                    <input type="hidden" value="<%= item._id %>" name="id">
+                    <input type="hidden" value="<%= itemSize[i] %>" name = "size">
+                    <span>
+                      <button type="submit" style="border: 0px;"><i class="fa-solid fa-circle-plus" style="padding:0 .5rem;"></i></button>
+                    </span>
+                  </form>
+                   <%= itemqty[i] %> 
+                   <form style="display: inline; padding: 0%;" method="post" action="/reduce" onsubmit="reloadPage()">
+                    <input type="hidden" value="<%= item._id %>" name="id">
+                    <input type="hidden" value="<%= itemSize[i] %>" name = "size">
+                    <span>
+                      <% if (itemqty[i] <= 1 ) { %>
+                        <i class="fa-solid fa-circle-minus" style="padding:0 .5rem;border: 0px; color: grey"></i>
+                      <%} else { %>
+                        <button type="submit" style="border: 0px;"><i class="fa-solid fa-circle-minus" style="padding:0 .5rem;"></i></button>
+                      <% } %>
+                    </span>
+                  </form>
+                </span>
+                <p>Size: <%= itemSize[i] %></p>
+                <p>Rs. <strong><%= itemqty[i]*item.price %></strong></p>
+                <button data-item-id="<%= item._id %>" data-item-qty="<%= itemqty[i] %>" data-item-size="<%= itemSize[i] %>" data-item-price="<%= item.price %>" data-item-tprice="<%= totalPrice %>"  class="deleteButton"><i class="fa-regular fa-trash-can"></i> </button>
+              </div>
+              <!-- <%= wtext= wtext+ '%0a'+ '%0a' + item.name+'%0a'+ 'size: ' + itemSize[i]+'%0a'+ 'quantity: ' + itemqty[i]+'%0a'; %> -->
+              <% i+=1; %>
+            </div> 
+            <% }); %>
+          <% } %>
+          </div>
+            <div id="address">
+              <h1>Shipping Details</h1>
+              <div id="form">
+                <form action="/cart" method="POST">
+                  <div id="addressSubmit">
+                    <label for="name"></label>
+                    <input type="text" id="name" name="name" placeholder="type name here..." value="<%= name%>" required style="border: 1px solid rgb(180, 180, 180); padding: 5px; border-radius: 7px;"><br>
+                    <label for="address"></label>
+                    <textarea type="address" id="address" placeholder="type address here..."  name="address" rows="4" cols="50" required style="border: 1px solid rgb(180, 180, 180); padding: 5px; border-radius: 7px;"><%= address%></textarea><br>
+                    <label for="pincode"></label>
+                    <input  id="pincode" name="pincode" placeholder="Pincode" value="<%= pincode%>" required style="border: 1px solid rgb(180, 180, 180); padding: 5px; border-radius: 7px;"><br><br>
+                    <button id="submit-btn" type="submit" class="btn btn-warning " value="Submit" >Submit</button>
+                  </div>
+                  <div id="addressEdit" style="max-width: 20rem;">
+                    <p><%= name %></p>
+                    <p><%= address %></p>
+                    <p><%= pincode %></p>
+                    <button id="edit-btn"  class="btn btn-info">Edit</button>
+                  </div>
+                  <!-- <% wtext = wtext+ '%0a' + 'Shipping address' +'%0a'+ name+ '%0a'+ address+ '%0a'+ pincode %> -->
+                </form>
+              </div>
+              <div id="totalamount">
+              <h2>Total amount</h2>
+              <h1><strong>Rs. <%= totalPrice %></strong></h1>
+              <% if ( !name || !address || !pincode ) { %>
+                <a href="#"><button type="button" class="btn btn-secondary " >Please enter shipping details </button></a>
+                <% }else { %>
+                  <a href="https://wa.me/+919496501270?text=<%= wtext %>" target="_blank"><button type="button" class="btn btn-success " >Place order through whatsapp <i class="fa-brands fa-whatsapp"></i></button></a>
+                  <% } %>
+              </div>
+            </div>
+        </div>
+      </div>    
+    </header>
+  <footer id="color">
+    <%- include('./partials/footer.ejs') %>
+  </footer>
+  <%- include('./partials/javaS.ejs') %>
+  <%- include('./partials/switch.ejs') %>   
+  </body>
+</html>

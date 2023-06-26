@@ -1,0 +1,54 @@
+<script>
+    const addressEdit = document.getElementById('addressEdit')
+    const addressSubmit = document.getElementById('addressSubmit')
+    const submit = document.getElementById('submit-btn')
+    const edit = document.getElementById('edit-btn')
+
+
+    window.addEventListener('load', () => {
+      const isSubmitted = localStorage.getItem('isSubmitted');
+      if (isSubmitted) {
+        showEditForm();
+      } else {
+        showSubmitForm();
+      }
+    });
+
+      submit.addEventListener('click', async() => {
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 500);
+        });
+        const name = document.getElementById('name').value;
+        const address = document.getElementById('address').value;
+        const pincode = document.getElementById('pincode').value; 
+        localStorage.setItem('isSubmitted', 'true');
+        if (!name || !address || !pincode ){
+          setTimeout(() => {
+          alert("Please fill all the fields");
+        }, 500);
+        }else {
+          // setTimeout(() => {
+          showEditForm();
+        // }, 500);
+        }
+        });
+
+      edit.addEventListener('click', () => {
+        // Logout successful
+        localStorage.removeItem('isSubmitted');
+        showSubmitForm();          
+      });
+
+
+      function showSubmitForm() {
+        addressSubmit.style.display = 'block';
+        addressEdit.style.display = 'none';
+      }
+
+      function showEditForm() {
+        addressSubmit.style.display = 'none';
+        addressEdit.style.display = 'block';
+      }
+</script>

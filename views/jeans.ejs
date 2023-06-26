@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PB | <%= title%></title>
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/w_styles.css" />
+    <link rel="stylesheet" href="/common.css" />
+  </head>
+  <body>
+    <div class="containe">
+      <header>
+        <%- include('./partials/nav.ejs') %>
+      </header>
+      <main>
+        <section id="home">
+          <p>#explore_womens'_store</p>
+        </section>
+        <section id="product1" class="section-p1">
+          <h2>Jeans</h2>
+          <p>New collections</p>
+          <section class="allprod">
+            <% if (dress.length > 0) { %>
+              <% var z=1; %>
+              <% for (let item of dress) { %>
+                <% if (item.name.includes('jeans') || item.name.includes('Jeans')) { %>
+                  <% z=0; %>
+                <div class="pro-container">
+                  <div class="pro">
+                    <a href="/product/<%= item._id %>"><img src=<%= item.image1 %> alt="" /></a>
+                    <div class="des">
+                      <p><%= item.name %></p>
+                      <h4>Rs. <%= item.price %></h4>
+                    </div>
+                    <a href="/product/<%= item._id %>"><button style="width: 10rem; padding: .1rem;" >View details</button></a>
+                    <!-- <button class="btn btn-success "><a href=""><i class="fa-solid fa-cart-plus cart"></i></a></button> -->
+                  </div>
+                </div>
+                <% } %>
+              <% } %>
+              <% if (z!==0) { %>
+                <p>Nothing to display</p>
+              <% } %>
+            <% } else { %>
+              <p>Empty here</p>
+            <% } %>
+        </section>
+      </main>
+  <footer id="color">
+    <%- include('./partials/footer.ejs') %>
+  </footer> 
+  <%- include('./partials/javaS.ejs') %> 
+  </body>
+</html>

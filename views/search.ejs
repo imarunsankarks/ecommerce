@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PB | <%= title%></title>
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/w_styles.css" />
+    <link rel="stylesheet" href="/common.css" />
+  </head>
+  <body>
+    <div class="containe">
+      <header>
+        <%- include('./partials/nav.ejs') %>
+      </header>
+      <main>
+        <section id="searchResult">
+          <p>#search_result</p>
+        </section>
+        <section id="product1" class="section-p1">
+          <!-- <p>Top collections</p> -->
+          <% if (dress.length > 0) { %>
+            <h2>Showing results for <i>" <%= title%> "</i></h2>
+            <section class="allprod">
+              <% for (let item of dress) { %>
+                <div class="pro-container">
+                  <div class="pro">
+                    <a href="/product/<%= item._id %>"><img src=<%= item.image1 %> alt="" /></a>
+                    <div class="des">
+                      <p><%= item.name %></p>
+                      <h4>Rs. <%= item.price %></h4>
+                    </div>
+                    <a href="/product/<%= item._id %>"><button>View details</button></a>
+                    <!-- <button class="btn btn-success "><a href=""><i class="fa-solid fa-cart-plus cart"></i></a></button> -->
+                  </div>
+                </div>
+              <% } %>
+            <% } else { %>
+              <div id="Sorry">
+                <p>Sorry! No result found!</p>
+                <img src="/unknown.png" alt="">
+              </div>
+            <% } %>
+          </section>
+        </section>
+      </main>
+      <footer id="color">
+        <%- include('./partials/footer.ejs') %>
+      </footer> 
+    </div>
+  <%- include('./partials/javaS.ejs') %> 
+  </body>
+</html>

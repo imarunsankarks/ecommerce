@@ -1,67 +1,34 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+main {
+  flex: 1;
 }
-body {
-  font-family: 'Poiret One', cursive;
-  width: 100%;
-}
-::selection {
-  background-color: papayawhip;
-  color: black;
-}
-.section-p1{
-  padding: 40px 80px;
-}
-#top{
+.containe {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 10px;
-  background-color: none;
-  position: fixed;
-  background-color: white;
-  top: 0;
+  flex-direction: column;
+  min-height: 100%;
+}
+#searchResult {
+  margin-top: 30px;
+  background-image: url("/search1.jpg");
   width: 100%;
-  z-index: 999;
-}
-img.logo {
-  width: 5vw;
-}
-#navbar {
+  height: 400px;
+  background-size: cover;
+  background-position: top 5% right 0;
+  padding: 0px 50px;
   display: flex;
-  font-size: 1.1vw;
+  flex-direction: column;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
 }
-#navbar li{
-  list-style: none;
-  padding: 0 1rem;
+#searchResult p{
+  background-color: rgba(245, 245, 245);
+  font-size: 6vw;
+  background-size: 100%;
+  padding: 5px 25px;
 }
-#navbar li a{
-  text-decoration: none;
-  padding: 0 .2rem;
-  color: black;
-}
-#navbar li a:hover{
-  color: #8f633d
-}
-#mobile{
-  display: none;
-}
-#navbar li input{
-  border:none;
-  outline: none;
-}
-.form button{
-  border: none;
-  background-color:white;
-  cursor: pointer;
-}
+
 #home {
   margin-top: 30px;
-  background-image: url("../image/whome.jpg");
+  background-image: url("/search.jpg");
   width: 100%;
   height: 400px;
   background-size: cover;
@@ -78,10 +45,7 @@ img.logo {
   background-size: 100%;
   padding: 5px 25px;
 }
-.container {
-  /* max-width: 1140px; */
-  margin: 0 auto;
-}
+
 .Categories{
   display: block;
   position: fixed; 
@@ -90,7 +54,10 @@ img.logo {
   padding: 50px 20px;
 }
 #product1{
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  flex: auto;
 }
 .allprod{
   /* margin: 90px; */
@@ -115,7 +82,7 @@ img.logo {
 }
 #product1 .pro img{
   width: 100%;
-  height: 220px;
+  /* height: 220px; */
 }
 #product1 .pro .des{
   text-align: left;
@@ -124,87 +91,32 @@ img.logo {
 }
 #product1 .pro .des h4{
   color: rgb(230, 166, 164);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 100;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
   font-size: 20px;
 }
-#product1 .pro .cart{
-  color: #8d8d8d;
-  font-size: 13px;
-  text-align: right;
+#product1 .pro button{
   border: .1px solid #cfcfcf;
-  border-radius: 50px;
-  padding: 5px 70px;
   transition: .3s ease-out;
+  background-color: white;
 }
-#product1 .pro .cart:hover{
-  background-color: rgb(230, 166, 164);
-  color: white;
+#product1 .pro button:hover{
+  transform: scale(1.07);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
 }
-@media (min-width:700px){
-  #navbarmob{
-    display: none;
-  }
-}
-@media (max-width:700px){
-  #navbar{
-    display: none;
-  }
-  #navbarmob {
-    display: flex;
-    flex-direction: column;
-    font-size: .6rem;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: fixed;
-    top: 0;
-    right: -150px;
-    height: 100%;
-    width: 150px;
-    background-color: #ffffff ;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    padding: 1rem 0 0 .4rem;
-    line-height: 1.5rem;
-    transition: 0.4s;
-  }
-  #navbarmob li{
-    list-style: none;
-    padding: 0 1rem;
-  }
-  #navbarmob li a{
-    text-decoration: none;
-    padding: 0 .2rem;
-    color: black;
-  }
-  #navbarmob li input{
-    border:none;
-    outline: none;
-  }
-  #navbarmob.active{
-    right: 0px;
-  }
-  #mobile{
+#Sorry {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: .5rem;
-  }
-  #mobile i{
-    color: black;
-    padding: 0 4vw 0 0;
-    font-size: .7rem; 
-    display: flex;
-  }
-  #mobile a{
-    text-decoration: none;
-  }
-  img.logo {
-    width: 2.5rem;
-  }
-  #home {
-    height: 250px;
-  }
-  .pro-container {
-    padding: 20px 0px;
-  }
+  justify-content: center;
 }
+#Sorry p {
+  font-size: 2rem;
+  color: #a8a8a8;
+}
+#Sorry img {
+  width: 25vw;
+}
+
+
+

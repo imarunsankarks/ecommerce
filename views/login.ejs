@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>PB | Login page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <%- include('./partials/head.ejs') %>
+  <link rel="stylesheet" href="/common.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+      body {
+      /* background-image: url("/login.jpg"); */
+      /* background-color: #ccc; */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .container {
+      font-size: 1vw;
+      max-width: 500px;
+      margin: 25rem auto;
+      padding: 20px;
+      /* border: 1px solid #ccc; */
+      border-radius: 15px;
+      box-shadow: 0px 0px 25px rgb(0,0,0,.15);
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 5px;
+      border: 0px solid #ccc;
+      border-radius: 7px;
+      background-color: #f1f1f1;
+    }
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .logout-btn {
+      display: none;
+    }
+    #loginTitleText span{
+      /* scale: 1.5; */
+      transition:.3s ease-in;
+      /* letter-spacing: .5vw; */
+    }
+    #loginTitleText span:hover{
+      scale: 1.5;
+      transition:.3s ease-out;
+      /* letter-spacing: .5vw; */
+    }
+    #userName {
+      display: flex;
+      font-size: 3rem;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+    <%- include('./partials/nav.ejs') %>
+  </header>
+  <main>
+    <!-- <p >Login to shop</p> -->
+    <div class="loginContainer">
+      <div id="login-form">
+        <div id="loginTitleText">
+          <span>l</span><span>o</span><span>g</span><span>i</span><span>n</span><span>&nbsp;</span><span>t</span><span>o</span><span>&nbsp;</span><span>s</span><span>h</span><span>o</span><span>p</span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" required>
+        </div>
+        <div class="form-group">
+          <button id="login-btn">Login</button>
+        </div>
+        <span>New user ?   </span><a href="/register">Register here</a>
+      </div>
+      <div id="logout-form">
+        <div id="userNameDisp">
+          <p>hi,</p><span>&nbsp;</span>
+          <div id="email-container"></div>
+        </div>
+        <hr>
+        <div id="loginTitleText">
+          <span>h</span><span>a</span><span>p</span><span>p</span><span>y</span><span>&nbsp;</span><span>s</span><span>h</span><span>o</span><span>p</span><span>p</span><span>i</span><span>n</span><span>g</span>
+        </div>
+        <div class="form-group">
+          <button id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <script>
+      const loginForm = document.getElementById('login-form');
+      const logoutForm = document.getElementById('logout-form');
+      const loginBtn = document.getElementById('login-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+
+      // Check if the user is already logged in
+      const email = localStorage.getItem('email');
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (isLoggedIn) {
+        showLogoutForm(email);
+      } else {
+        showLoginForm();
+      }
+
+      // Login event handler
+      loginBtn.addEventListener('click', () => {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Send login request to the server
+        fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        })
+        .then(response => {
+          if (response.ok) {
+            // Login successful
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('email', email);
+            showLogoutForm(email);
+            location.reload();
+          } else {
+            // Login failed
+            alert('Login failed. Please try again.');
+          }
+        })
+        .catch(error => {
+          console.log('Error:', error);
+          alert('An error occurred. Please try again later.');
+        });
+      });
+
+          // Logout event handler
+      logoutBtn.addEventListener('click', () => {
+        // Send logout request to the server
+        fetch('/logout', {
+          method: 'POST',
+        })
+        .then(response => {
+          if (response.ok) {
+            // Logout successful
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('isSubmitted');
+            showLoginForm();
+            location.reload();
+          } else {
+            // Logout failed
+            alert('Logout failed. Please try again.');
+          }
+        })
+        .catch(error => {
+          console.log('Error:', error);
+          alert('An error occurred. Please try again later.');
+        });
+      });
+
+
+      // Function to show the login form
+      function showLoginForm() {
+        loginForm.style.display = 'block';
+        logoutForm.style.display = 'none';
+      }
+
+      // Function to show the logout form
+      function showLogoutForm(email) {
+        // console.log(email);
+        const emailContainer = document.getElementById('email-container');
+        const truncatedEmail = email.substring(0, email.indexOf("@"));
+        emailContainer.textContent = truncatedEmail;
+        loginForm.style.display = 'none';
+        logoutForm.style.display = 'block';
+      }
+    </script>
+    <footer id="color">
+      <%- include('./partials/footer.ejs') %>
+    </footer>
+  </div>
+  <%- include('./partials/javaS.ejs') %>
+</body>
+</html>
