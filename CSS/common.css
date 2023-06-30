@@ -425,7 +425,7 @@
   }
   #product1 .pro button {
     font-size: 2vw;
-    width: 20vw; 
+    /* width: 20vw;  */
     padding: .1rem;
   }
   #product1 h2 {

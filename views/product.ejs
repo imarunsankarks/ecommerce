@@ -43,8 +43,6 @@
                   <div id="notification" class="notification">Item added to cart!</div>
                 </div>
               </form>
-            </div>
-            <div class="btn-group">
               <form method="post" action="/wishlist/<%= item._id %>">
                 <input type="hidden" value="<%= item._id %>" name="id">
                 <input type="hidden" value="<%= user %>" name="currentUser" id="currentUser">
@@ -53,7 +51,6 @@
                   <div id="wnotification" class="notification"></div>
                 </div>
               </form>
-                    <!-- <a href="/"><button type="button" class="btn btn-danger " >Wishlist</button></a> -->
             </div>
           </div>
           <div class="smallimggrp">
