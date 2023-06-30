@@ -51,7 +51,7 @@ app.use(session({
   saveUninitialized: false,  
   store: store, // Use the MongoDB session store created in the previous step
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 // Set the session cookie expiration time (e.g., 1 day)
+    maxAge: 1000 * 60 * 60 * 24 
   } }));
 app.use(express.static('CSS'));
 app.use(express.static('image'));
@@ -85,7 +85,8 @@ function base64_encode(file) {
 
 app.get('/add', (req, res) => {
     const dress = new Dress({
-        name:'Jumpsuit red',
+        name:'Jumpsuit stripes',
+        color:'red',
         price:749,
         image1:base64str1,
         image2:base64str2,
@@ -129,15 +130,37 @@ const cartSchema = new mongoose.Schema({
 const Cart = mongoose.model('Cart', cartSchema);
 
 
+
+const wishlistSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  products: [{
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+    }
+  }],
+});
+
+const Wishlist = mongoose.model('Wishlist', wishlistSchema);
+
+
+
+
+
 app.get('/', (req, res) => {
     res.render('index', { title:'Home'});
 });
 
 app.get('/new', (req, res) => {
+    const currentUser = req.session.userId;
     Dress.find()
     .sort({ createdAt: -1})
     .then((result) => {
-        res.render('women', { title:'New arrivals', dress: result});
+        res.render('women', { title:'New arrivals', dress: result, user: currentUser});
     })
     .catch((err) =>{
         console.log(err)
@@ -169,15 +192,54 @@ app.get('/jeans', (req, res) => {
   });
 
 
+  app.get('/filter', (req, res) => {
+    const queryParams = req.query;
+    const { material, size, price, color } = queryParams;
+  
+    const filters = {};
+
+    if (material) {
+      filters.material = material;
+    }
+    if (size) {
+      filters.size = { $in: size };
+    }
+    if (price) {
+      const maxPrice = Array.isArray(price) ? Math.max(...price.map(Number)) : Number(price);
+      filters.price = { $lt: maxPrice };
+    }
+    
+    
+    if (color) {
+      filters.color = color;
+    }
+    // console.log(filters)
+  
+    Dress.find(filters)
+      .sort({ createdAt: -1 })
+      .then((results) => {
+        const dress = results;
+        res.render('filter', { title: 'Filter', dress, filters });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send('An error occurred');
+      });
+  });
+  
+
+
+
 app.get('/home', (req, res) => {
     res.redirect('/');
 });
 
 app.get('/product/:id', (req, res) => {
     const productId = req.params.id;
+    const currentUser = req.session.userId;
     Dress.findById(productId)
     .then((result) => {
-        res.render('product', { title:'Product', item: result});
+        res.render('product', { title:'Product', item: result, user: currentUser});
     })
     .catch((err) => {
         console.log(err);
@@ -215,15 +277,55 @@ app.post('/product/:id', urlencodedParser, async (req, res) => {
     res.status(204).send();
   } catch (error) {
     console.log('Please login to shop');
-    // res.status(500).json({ success: false, error: 'Failed to update cart' });
-    res.redirect('/login');
+    res.status(500).json({ success: false, error: 'Failed to update cart' });
+    // res.redirect('/login');
+  }
+  
+});
+
+
+
+app.post('/wishlist/:id', urlencodedParser, async (req, res) => {
+  const productId = req.body.id;
+
+  try {
+    const userId = req.session.userId;
+    const wishlist = await Wishlist.findOne({ user: userId });
+
+    if (!wishlist) {
+      const newWishlist = new Wishlist({
+        user: userId,
+        products: [{ product: productId }],
+      });
+      await newWishlist.save();
+    } else {
+      const existingProductIndex = wishlist.products.findIndex(
+        (product) => product.product.toString() === productId
+      );
+
+      if (existingProductIndex !== -1) {
+        // wishlist.products[existingProductIndex].quantity += quantity;
+        wishlist.products.splice(existingProductIndex, 1);
+      } else {
+        wishlist.products.push({ product: productId });
+      }
+      await wishlist.save();
+    }
+    res.status(204).send();
+  } catch (error) {
+    console.log(error);
+    // res.status(500).json({ success: false, error: 'Failed to update wishlist' });
+    // res.redirect('/login');
   }
 });
+
+
+
+
 
 app.post('/reduce', urlencodedParser, async (req, res) => {
   const productId = req.body.id;
   const size = req.body.size;
-  // console.log(size);
 
   try {
     const userId = req.session.userId;
@@ -434,8 +536,6 @@ app.get('/register', (req,res) => {
           return res.status(401).send('Invalid password');
         }
         req.session.userId = user._id;
-        // console.log(req.session.email)
-        // console.log(email);
         res.status(200).send({email});
       } catch (error) {
         res.status(500).send('Error authenticating user');
@@ -452,5 +552,45 @@ app.get('/register', (req,res) => {
           res.sendStatus(200);
         }
       });
+    });
+
+
+
+    app.get('/wishlist', async (req, res) => {
+      try {
+        var name = req.query.name;
+        const currentUser = req.session.userId;
+        const wishitem = [];
+        const userId = req.session.userId;
+        const wishlist = await Wishlist.findOne({ user: userId }).populate({
+          path: 'products.product',
+          model: 'Dress',
+        });
+    
+        if (!wishlist) {
+          var totalQuantity = 0;
+        } else {
+          for (const product of wishlist.products) {
+            try {
+              const result = await Dress.findById(product.product);
+              if (result) {
+                wishitem.push(product.product);
+              }
+            } catch (error) {
+              console.error(error);
+              res.status(500).send('An error occurred');
+            }
+          }
+        }
+    
+        res.render('wishlist', {
+          wishitem: wishitem,
+          name: name,
+          user: currentUser
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred');
+      }
     });
     

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>PB | Cart </title>
+    <%- include('./partials/head.ejs') %>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/common.css" />
+    <link rel="stylesheet" href="/navbar.css" />
+    <link rel="stylesheet" href="/footer.css" />
+    <link rel="stylesheet" href="/addition.css" />
+  </head>
+  <body>
+    <header id="cartContainer">
+      <%- include('./partials/nav.ejs') %>
+      <div>
+        <h1 id="cartdetails">My wishlist</h1>
+        <!-- <hr> -->
+        <div id="CartProducts">
+          <div id="allProdDetailsW">
+          <% if(wishitem.length<1) { %>
+            <div class='empty'>
+              <img src="/emptyw.jpg" alt="">
+              <p>Wishlist is empty.</p>
+            </div>
+          <% }else{ %>
+          <% wishitem.forEach(function(item) { %>
+            <div id="eachProdDetailsW">
+              <a href="/product/<%= item._id %>"><img src="<%= item.image1 %>" alt="" ></a>
+              <div id="prodDetailsW">
+                <p style="margin-bottom:0 ;"><%= item.name %></p>
+                
+                  <form method="post" action="/wishlist/<%= item._id %>" style="padding: 0;">
+                    <input type="hidden" value="<%= item._id %>" name="id">
+                    <input type="hidden" value="<%= user %>" name="currentUser" id="currentUser">
+                    <button class="removeWishlist" onclick="reloadPage()"  type="submit" style="font-size: 1.3rem;color: rgb(221, 37, 37); border: 0px;"><i class="fa-solid fa-heart-crack"></i></button>
+                  </form>
+                
+              </div>
+            </div> 
+            <% }); %>
+          <% } %>
+          </div>
+
+        </div>
+      </div>    
+    </header>
+  <footer id="color">
+    <%- include('./partials/footer.ejs') %>
+  </footer>
+  <%- include('./partials/javaS.ejs') %>
+  <%- include('./partials/switch.ejs') %>   
+  <style>
+    form {
+      background-color: rgb(240, 240, 240);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+  </style>
+  </body>
+</html>

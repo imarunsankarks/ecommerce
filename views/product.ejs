@@ -36,15 +36,24 @@
             <div class="btn-group">
               <form method="post" action="/product/<%= item._id %>">
                 <input type="hidden" value="<%= item._id %>" name="id">
+                <input type="hidden" value="<%= user %>" name="currentUser" id="currentUser">
                 <input type="hidden" id="selectedSize" name = "size">
                 <div>
                   <button onclick="addToCart(event)" type="submit" class="btn btn-success " >Add to cart</button>
                   <div id="notification" class="notification">Item added to cart!</div>
                 </div>
               </form>
-                  <div class="btn-group">
-                    <a href="/"><button type="button" class="btn btn-danger " >Wishlist</button></a>
-                  </div>
+            </div>
+            <div class="btn-group">
+              <form method="post" action="/wishlist/<%= item._id %>">
+                <input type="hidden" value="<%= item._id %>" name="id">
+                <input type="hidden" value="<%= user %>" name="currentUser" id="currentUser">
+                <div>
+                  <button onclick="addToWishlist()" type="submit" class="btn btn-danger " >Wishlist</button>
+                  <div id="wnotification" class="notification"></div>
+                </div>
+              </form>
+                    <!-- <a href="/"><button type="button" class="btn btn-danger " >Wishlist</button></a> -->
             </div>
           </div>
           <div class="smallimggrp">
@@ -58,8 +67,11 @@
           <div class="prodDetails">
             <h3>Product details</h3>
             <hr>
-            <h3>Material: <%= item.material %></h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt laudantium tempora quae eaque in? Quis odit accusantium dolor numquam eum? Facere accusantium totam suscipit quidem corporis quaerat tempore voluptas magni. Eveniet quis nesciunt in voluptates facere minus libero quae ipsum? Harum, eius? Perspiciatis sequi deleniti ea, quis nobis porro maiores, dignissimos itaque recusandae incidunt exercitationem nemo voluptatum aspernatur! Molestiae necessitatibus et, consectetur molestias, dolorem blanditiis unde at iure, quos beatae vel reprehenderit voluptates hic fugiat porro debitis. </p>
+            <div id="dress-mat-col">
+              <h5><i class="fa-solid fa-shirt"></i> <%= item.material %></h5>
+              <h5 style="color: <%= item.color %>;"><i class="fa-solid fa-palette"></i> <%= item.color %></h5>
+            </div>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt laudantium tempora quae eaque in? Quis odit accusantium dolor numquam eum? Facere accusantium totam suscipit quidem corporis quaerat tempore voluptas magni. Eveniet quis nesciunt in voluptates facere minus libero quae ipsum? Harum, eius? Perspiciatis sequi deleniti ea, quis nobis porro maiores, dignissimos itaque recusandae incidunt exercitationem nemo. </p>
           </div>
         </div> 
         <!-- <hr>  -->

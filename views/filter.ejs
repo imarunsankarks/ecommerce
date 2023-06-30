@@ -17,12 +17,35 @@
         <%- include('./partials/nav.ejs') %>
       </header>
       <main>
-        <section id="home">
-          <p>#explore_womens'_store</p>
+        <section id="filterhome">
+          <p>#get_it_filtered!</p>
         </section>
         <section id="product1" class="section-p1">
-          <h2>New Arrivals</h2>
-          <p>Top collections</p>
+          <h2>Filtered Products</h2>
+          <div id="AppliedFilters">
+            <p><strong>Filters</strong></p>
+            <% if (filters.material) { %>
+              <div class="AppliedFilterProperties">
+                <p>Material: <%= filters.material %></p>
+              </div>
+            <% } %>
+            <% if (filters.size) { %>
+              <div class="AppliedFilterProperties">
+                <p>Size: <%= filters.size.$in %></p>
+              </div>
+            <% } %>
+            <% if (filters.price) { %>
+              <div class="AppliedFilterProperties"> 
+                <p>Price: <%= filters.price.$lt %></p>
+              </div>
+            <% } %>
+            <% if (filters.color) { %>
+              <div class="AppliedFilterProperties"> 
+                <p>Color: <%= filters.color %></p>
+              </div>
+            <% } %>
+          </div>
+          
           <div class="filterBox">
             <i class="fa-solid fa-filter" id="filterIcon"></i>
           </div>
@@ -30,10 +53,14 @@
             <i class="fa-solid fa-arrow-left" id="filterBack"></i>
             <br>
             <%- include('./partials/filterTab.ejs') %>
+            <br>
+            <a href="/new" style="color: black; text-decoration: none;"><i class="fa-solid fa-chevron-left"></i> New Arrivals</a>
           </div>
           <div class="filterNProducts">
             <div class="filterTab">
               <%- include('./partials/filterTab.ejs') %>
+              <br>
+              <a href="/new" style="color: black; text-decoration: none;"><i class="fa-solid fa-chevron-left"></i> New Arrivals</a>
             </div>
             <section class="allprod">
               <% if (dress.length > 0) { %>
@@ -45,14 +72,7 @@
                         <p><%= item.name %></p>
                         <h4><strong>Rs. <%= item.price %></strong></h4>
                       </div>
-                      <form method="post" action="/wishlist/<%= item._id %>">
-                        <input type="hidden" value="<%= item._id %>" name="id">
-                        <input type="hidden" value="<%= user %>" name="currentUser" id="currentUser">
-                        <div>
-                          <button onclick="addToWishlist()" type="submit" class="btn btn-danger" style="color: black;"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                      </form>
-                      <!-- <button class="wishlistProduct"><i class="fa-regular fa-heart"></i></button> -->
+                      <button class="wishlistProduct"><i class="fa-regular fa-heart"></i></button>
                       <!-- <button class="btn btn-success "><a href=""><i class="fa-solid fa-cart-plus cart"></i></a></button> -->
                     </div>
                   </div>

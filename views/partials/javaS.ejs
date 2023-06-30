@@ -3,6 +3,10 @@
     const bar = document.getElementById('bar');
     const nav = document.getElementById('navbarmob');
     const close = document.getElementById('close');
+    const filter = document.getElementById('filterIcon')
+    const filterBox = document.getElementById('filtershow')
+    const filterBack = document.getElementById('filterBack')
+
 
     if (bar){
         bar.addEventListener('click', () => {
@@ -15,6 +19,17 @@
             nav.classList.remove('active');
     })
     }
+    if (filter){
+        filter.addEventListener('click', () => {
+            filterBox.classList.add('active');
+        })
+    }
+    if (filterBack){
+        filterBack.addEventListener('click', () => {
+            filterBox.classList.remove('active');
+        })
+    }
+
 
 
    
@@ -22,7 +37,18 @@
 
     function addToCart(event) {
         const selectedSize = document.getElementById('dresssize').value;
-        if (selectedSize ==='none') {
+        const currentUser = document.getElementById('currentUser').value;
+        if (!currentUser) {
+            event.preventDefault();
+            var notification = document.getElementById("notification");
+            document.getElementById('notification').innerText = 'Please login to shop';
+            notification.style.display = "block";
+            setTimeout(() => {
+            notification.style.display = "none";
+            location.reload();
+            }, 1000);
+          } else {
+            if (selectedSize ==='none') {
             event.preventDefault();
             var notification = document.getElementById("notification");
             document.getElementById('notification').innerText = 'Please select a size';
@@ -30,8 +56,8 @@
             setTimeout(() => {
             notification.style.display = "none";
             location.reload();
-            }, 2000);
-        } else {
+            }, 1000);
+          } else {
             document.getElementById('selectedSize').value = selectedSize;
             fetch('/cartquantity')
             .then(response => response.json())
@@ -52,6 +78,22 @@
                 console.log('Error:', error);
             });
         }
+      }
+    };
+
+
+    function addToWishlist() {
+        const currentUser = document.getElementById('currentUser').value;
+        if (!currentUser) {
+            event.preventDefault();
+            var notification = document.getElementById("wnotification");
+            document.getElementById('wnotification').innerText = 'Please login to wishlist';
+            notification.style.display = "block";
+            setTimeout(() => {
+            notification.style.display = "none";
+            location.reload();
+            }, 1000);
+          } 
     };
 
   window.onload = function () {
@@ -99,20 +141,22 @@
     });
     });
 
+
     function reloadPage() {
-    // document.forms[0].submit();
     setTimeout(() => {
     location.reload();
     }, 300);
     }
 
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
 
-    searchForm.addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        const searchText = searchInput.value;
-        // console.log(searchText); 
-        searchForm.submit(); 
-    });
+    // const myButtons = document.getElementsByClassName('wishlistProduct');
+    // for (let i = 0; i < myButtons.length; i++) {
+    //     myButtons[i].addEventListener('click', function() {
+    //         this.classList.add('clicked');
+    //     })
+    // }
+    // document.addEventListener('contextmenu', function(event) {
+    //   event.preventDefault();
+    // });
+
 </script> 

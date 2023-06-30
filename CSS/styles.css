@@ -297,16 +297,34 @@ p.btag {
   display: grid;
   align-items: center;
   align-content: center;
-  grid-template-columns: 12rem 13rem;
+  grid-template-columns: 12rem 14rem;
   background-color: rgb(240, 240, 240);
   border-radius: 10px;
   color: #6d6d6d;
+}
+#eachProdDetailsW{
+  margin: 1rem 5rem;
+  display: flex;
+  align-items: center;
+  width: 13rem;
+  grid-template-columns: 12rem 14rem;
+  background-color: rgb(240, 240, 240);
+  border-radius: 33px;
+  color: #6d6d6d;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 
 
 
 #allProdDetails {
   padding: 0 5vw;
+}
+#allProdDetailsW {
+  padding: 0 0vw;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 #CartProducts img{
@@ -335,6 +353,15 @@ p.btag {
 
 #prodDetails{
   padding: 1rem 0;
+}
+#prodDetailsW{
+  padding: 0 0 1rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 
