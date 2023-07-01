@@ -156,16 +156,32 @@ app.get('/', (req, res) => {
 });
 
 app.get('/new', (req, res) => {
-    const currentUser = req.session.userId;
-    Dress.find()
-    .sort({ createdAt: -1})
-    .then((result) => {
-        res.render('women', { title:'New arrivals', dress: result, user: currentUser});
+  const currentUser = req.session.userId;
+  
+  // Fetch products from Wishlist collection
+  Wishlist.findOne({ user: currentUser })
+    .then((wishlistResult) => {
+      const wishlistProducts = wishlistResult;
+
+      // Fetch products from Dress collection
+      Dress.find()
+        .sort({ createdAt: -1 })
+        .then((dressResult) => {
+          const dressProducts = dressResult;
+
+          res.render('women', { title: 'New arrivals', dress: dressProducts, wishlist: wishlistProducts, user: currentUser });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send('An error occurred');
+        });
     })
-    .catch((err) =>{
-        console.log(err)
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('An error occurred');
     });
-    })
+});
+
 
 app.get('/jeans', (req, res) => {
   Dress.find()

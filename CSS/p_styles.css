@@ -127,18 +127,7 @@
   }
 
 
-.notification {
-  display: none;
-  position: fixed;
-  top: 2.5vw;
-  right: 2vw;
-  padding: .5vw;
-  background-color: #fff7df;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 7px;
-  z-index: 9999;
-}
+
 #dress-mat-col{
   display: flex;
 }

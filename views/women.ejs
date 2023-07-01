@@ -36,6 +36,8 @@
               <%- include('./partials/filterTab.ejs') %>
             </div>
             <section class="allprod">
+              <% var color; %>
+              <% var icon; %>
               <% if (dress.length > 0) { %>
                 <% for (let item of dress) { %>
                   <div class="pro-container" id="productContainer">
@@ -49,7 +51,23 @@
                         <input type="hidden" value="<%= item._id %>" name="id">
                         <input type="hidden" value="<%= user %>" name="currentUser" id="currentUser">
                         <div>
-                          <button onclick="addToWishlist()" type="submit" class="btn btn-danger" style="color: black;"><i class="fa-regular fa-heart"></i></button>
+                          <% if(wishlist) {%>
+                            <% for (let witem of wishlist.products){ %>
+                              <% if (witem.product == item._id.toString()){ %>
+                                <% color = 'red' %>
+                                <% icon = "fa-solid fa-heart" %>
+                                <% break; %>
+                              <% }else{ %>
+                                <% color = 'grey' %>
+                                <% icon = "fa-regular fa-heart" %>
+                              <% } %>
+                            <% } %>
+                          <button onclick="addToWishlist(); reloadPage()" type="submit" class="btn btn-danger heart" style="color: <%= color%>;"><i class='<%= icon%>'></i></button>
+                          <div id="wnotification" class="notification"></div>
+                          <% }else{ %>
+                            <button onclick="addToWishlist()" type="submit" class="btn btn-danger heart" style="color: grey;"><i class="fa-regular fa-heart"></i></button>
+                            <div id="wnotification" class="notification"></div>
+                            <% } %>
                         </div>
                       </form>
                       <!-- <button class="wishlistProduct"><i class="fa-regular fa-heart"></i></button> -->
